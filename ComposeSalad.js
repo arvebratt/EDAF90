@@ -10,9 +10,14 @@ class ComposeSalad extends Component {
             dressing: [],
             price: 0,
         };
+                const inventory = this.props.inventory;
+        let foundations = Object.keys(inventory).filter(name => inventory[name].foundation);
+        let extra = Object.keys(inventory).filter(name => inventory[name].extra);
+        let protein = Object.keys(inventory).filter(name => inventory[name].protein);
+        let dressing = Object.keys(inventory).filter(name => inventory[name].dressing);
     }
 
-    cancelSubmit = (e) => {
+    onCancel = (e) => {
         this.setState({
             foundation: [],
             protein: [],
@@ -27,6 +32,7 @@ class ComposeSalad extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         console.log(this.state);
+        this.unCheck();
     }
 
     selectChange = (e) => {
@@ -44,15 +50,24 @@ class ComposeSalad extends Component {
         })
     }
 
-    booleanChecked = (e) => {
-        if(this.state[e.target.name]){
-            return true;
-        } else{
-            return false;
+    unCheck = () => {
+        const inventory = this.props.inventory;
+
+        let extra = Object.keys(inventory).filter(name => inventory[name].extra);
+        let protein = Object.keys(inventory).filter(name => inventory[name].protein);
+
+        for(var i = 0; i<extra.length; i++){
+            if(this.refs[extra[i]].checked){
+                this.refs[extra[i]].checked = !this.refs[extra[i]].checked;
+            }
         }
-
+        for(var i = 0; i<protein.length; i++){
+            if(this.refs[protein[i]].checked){
+                this.refs[protein[i]].checked = !this.refs[protein[i]].checked;
+            }
+        }
     }
-
+    
     render() {
         const inventory = this.props.inventory;
         let foundations = Object.keys(inventory).filter(name => inventory[name].foundation);
@@ -76,7 +91,7 @@ class ComposeSalad extends Component {
                     <p>Välj protein</p>
                     {protein.map(name =>
                         <div key={name}>
-                            <input name="protein" value={name} checked={e => this.booleanChecked(e)} type="checkbox" onChange={e => this.checkboxChange(e)}/>
+                            <input name="protein" value={name} ref={name} type="checkbox" onChange={e => this.checkboxChange(e)}/>
                             {name} ({inventory[name].price}kr)
                         </div>
                     )}
@@ -87,7 +102,7 @@ class ComposeSalad extends Component {
                     <p>Välj tillbehör</p>
                     {extra.map(name =>
                         <div key={name}>
-                            <input name="extra" value={name} type="checkbox" onChange={e => this.checkboxChange(e)}/>
+                            <input name="extra" value={name} ref={name} type="checkbox" onChange={e => this.checkboxChange(e)}/>
                             {name} ({inventory[name].price}kr)
                   </div>
                     )}
@@ -102,11 +117,21 @@ class ComposeSalad extends Component {
                     </select>
       
                 <br></br>
-                <button type="submit" id="submit" onClick={e => this.onSubmit(e)}>
-                Compose
+                <button 
+                type="submit" 
+                className="btn btn-primary"
+                id="submit" 
+                onClick={e => this.onSubmit(e)}
+                data-dismiss="modal"
+                >
+                Lägg till
                 </button>
-                <button type="submit" id="submit" onClick={e => this.cancelSubmit(e)}>
-                Exit
+                <button type="submit"
+                className="btn btn-primary"
+                id="submit"
+                onClick={e => this.onCancel(e)}
+                data-dismiss="modal">
+                Avbryt
                 </button>
                 </form>
             </div>

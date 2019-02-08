@@ -41,20 +41,6 @@ class ComposeSaladModal extends React.Component {
                 <ComposeSalad inventory={this.props.inventory} />
               </div>
               <div className="modal-footer">
-              <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Lägg till
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Stäng fönstret
-                </button>
               </div>
             </div>
           </div>
