@@ -12,22 +12,27 @@ class ComposeSalad extends Component {
         };
     }
 
-    onCancel = (e) => {
+    clearState = () => {
         this.setState({
             foundation: [],
             protein: [],
             extra: [],
             dressing: [],
             price: 0,
-        })
-        e.preventDefault();
-        console.log(this.state);
+        });
     }
 
     onSubmit = (e) => {
         e.preventDefault();
         console.log(this.state);
         this.unCheck();
+        this.clearState();
+    }
+
+    onCancel = (e) => {
+        e.preventDefault();
+        this.unCheck();
+        this.clearState();
     }
 
     selectChange = (e) => {
