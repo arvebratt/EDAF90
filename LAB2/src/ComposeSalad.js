@@ -67,7 +67,7 @@ class ComposeSalad extends Component {
             }
         }
     }
-
+    
     render() {
         const inventory = this.props.inventory;
         let foundations = Object.keys(inventory).filter(name => inventory[name].foundation);
@@ -78,19 +78,16 @@ class ComposeSalad extends Component {
         return (
             <div className="container">
             <form>
-
+                
                     <p>Välj bas</p>
                     <select name="foundation" onChange={e => this.selectChange(e)}>
-                    <option>
-                    -Välj en bas-
-                    </option>
                         {foundations.map(name => <option key={name} value={name}>
                         {name} ({inventory[name].price}kr)</option>)}
                     </select>
-
+               
                 <br></br>
 
-
+               
                     <p>Välj protein</p>
                     {protein.map(name =>
                         <div key={name}>
@@ -98,10 +95,10 @@ class ComposeSalad extends Component {
                             {name} ({inventory[name].price}kr)
                         </div>
                     )}
-
+              
                 <br></br>
 
-
+    
                     <p>Välj tillbehör</p>
                     {extra.map(name =>
                         <div key={name}>
@@ -109,24 +106,21 @@ class ComposeSalad extends Component {
                             {name} ({inventory[name].price}kr)
                   </div>
                     )}
-
+          
                 <br></br>
 
-
+            
                     <p>Välj dressing</p>
                     <select name="dressing" onChange={e => this.selectChange(e)}>
-                    <option>
-                    -Välj en dressing-
-                    </option>
                         {dressing.map(name => <option key={name} value={name}>
                         {name} ({inventory[name].price}kr)</option>)}
                     </select>
-
+      
                 <br></br>
-                <button
-                type="submit"
+                <button 
+                type="submit" 
                 className="btn btn-primary"
-                id="submit"
+                id="submit" 
                 onClick={e => this.onSubmit(e)}
                 data-dismiss="modal"
                 >
