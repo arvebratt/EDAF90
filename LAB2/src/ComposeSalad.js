@@ -10,7 +10,9 @@ class ComposeSalad extends Component {
             dressing: [],
             price: 0,
         };
+        this.onSubmit = this.onSubmit.bind(this);
     }
+
 
     clearState = () => {
         this.setState({
@@ -25,6 +27,7 @@ class ComposeSalad extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         console.log(this.state);
+        this.props.onSubmit(this.state);
         this.unCheck();
         this.clearState();
     }

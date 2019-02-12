@@ -8,8 +8,24 @@ import "bootstrap/dist/js/bootstrap.js";
 import inventory from "./inventory.ES6";
 import ComposeSaladModal from "./ComposeSaladModal";
 import './App.css';
+import Table from './ViewOrder';
 
 class App extends React.Component {
+  constructor(...args){
+    super(...args);
+    this.state = {
+      data: [""]
+    };
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  onSubmit = (e) => {
+    console.log("app fick", e);
+    this.setState({data: [...this.state.data, e]})
+    console.log("state", this.state.data);
+
+  }
+
   render() {
     return (
       <div>
@@ -19,25 +35,29 @@ class App extends React.Component {
             Hosshuset AB
           </p>
         </div>
-        <ComposeSaladModal inventory={inventory} />
-        <table Style="width:100%">
-          <tr>
-            <th>Bas</th>
-            <th>Protein</th>
-            <th>Tillbehör</th>
-            <th>Dressing</th>
-            <th>Pris</th>
-          </tr>
-          <tr>
-            <td>Sallad</td>
-            <td>Kyckling</td>
-            <td>Gurka, Avacado, Oliver</td>
-            <td>Rhodeisland</td>
-            <td>45 kr</td>
-          </tr>
-          <tr>
-          </tr>
-        </table>
+        <ComposeSaladModal inventory={inventory} onSubmit={e => this.onSubmit(e)} />
+        <Table data={this.state.data} header={[
+    {
+      name :'Foundation',
+      prop: 'foundation',
+    },
+    {
+      name: 'Protein',
+      prop: 'protein',
+    },
+    {
+      name: 'Extras',
+      prop: 'extra',
+    },
+    {
+      name:'Dressing',
+      prop: 'dressing',
+    },
+    {
+      name: 'Price',
+      prop: 'price',
+    }
+  ]} />;
       </div>
     );
   }
@@ -47,4 +67,4 @@ class App extends React.Component {
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
 
-export default App;
+export default App

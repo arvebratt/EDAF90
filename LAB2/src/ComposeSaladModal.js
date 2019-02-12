@@ -3,8 +3,13 @@ import ComposeSalad from "./ComposeSalad";
 
 class ComposeSaladModal extends React.Component {
 
+  onSubmit = (e) => {
+    console.log("Modal fick",e);
+    this.props.onSubmit(e); 
+  }
   render() {
     return (
+
       <div>
         <button
           type="button"
@@ -38,7 +43,7 @@ class ComposeSaladModal extends React.Component {
                 </button>
               </div>
               <div className="modal-body">
-                <ComposeSalad inventory={this.props.inventory} />
+                <ComposeSalad inventory={this.props.inventory} onSubmit={e => this.onSubmit(e)}/>
               </div>
             </div>
           </div>
