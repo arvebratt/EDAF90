@@ -30,6 +30,7 @@ class ComposeSalad extends Component {
         this.props.onSubmit(this.state);
         this.unCheck();
         this.clearState();
+        this.props.history.push('/ViewOrder');
     }
 
     onCancel = (e) => {
