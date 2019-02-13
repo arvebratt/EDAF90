@@ -26,11 +26,14 @@ class ComposeSalad extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
-        this.props.onSubmit(this.state);
-        this.unCheck();
-        this.clearState();
-        this.props.history.push('/ViewOrder');
+        e.target.classList.add("was-validated");
+        if (e.target.checkValidity() === true){
+            console.log(this.state);
+            this.props.onSubmit(this.state);
+            this.unCheck();
+            this.clearState();
+            this.props.history.push('/ViewOrder');
+        }
     }
 
     onCancel = (e) => {
@@ -60,18 +63,18 @@ class ComposeSalad extends Component {
         let extra = Object.keys(inventory).filter(name => inventory[name].extra);
         let protein = Object.keys(inventory).filter(name => inventory[name].protein);
 
-        for(var i = 0; i<extra.length; i++){
-            if(this.refs[extra[i]].checked){
+        for (var i = 0; i < extra.length; i++) {
+            if (this.refs[extra[i]].checked) {
                 this.refs[extra[i]].checked = !this.refs[extra[i]].checked;
             }
         }
-        for(i = 0; i<protein.length; i++){
-            if(this.refs[protein[i]].checked){
+        for (i = 0; i < protein.length; i++) {
+            if (this.refs[protein[i]].checked) {
                 this.refs[protein[i]].checked = !this.refs[protein[i]].checked;
             }
         }
     }
-    
+
     render() {
         const inventory = this.props.inventory;
         let foundations = Object.keys(inventory).filter(name => inventory[name].foundation);
@@ -81,62 +84,65 @@ class ComposeSalad extends Component {
 
         return (
             <div className="container">
-            <form>
-                
+                <form onSubmit={e => this.onSubmit(e)} noValidate>
+                <div className="row">
+                    <div className="form-group col-sm">
                     <p>Välj bas</p>
-                    <select name="foundation" onChange={e => this.selectChange(e)}>
+                    <select required name="foundation" onChange={e => this.selectChange(e)} className="form-control">
+                        <option selected value='' disabled hidden>make a choice...</option>
                         {foundations.map(name => <option key={name} value={name}>
-                        {name} ({inventory[name].price}kr)</option>)}
+                            {name} ({inventory[name].price}kr)</option>)}
                     </select>
-               
-                <br></br>
+                    <div className="invalid-feedback">
+                            Du måste välja en bas.
+                    </div>
+                    </div>
 
-               
+                    <br></br>
+
+                    <div className="form-group col-sm">
                     <p>Välj protein</p>
                     {protein.map(name =>
                         <div key={name}>
-                            <input name="protein" value={name} ref={name} type="checkbox" onChange={e => this.checkboxChange(e)}/>
+                            <input name="protein" value={name} ref={name} type="checkbox" onChange={e => this.checkboxChange(e)} />
                             {name} ({inventory[name].price}kr)
                         </div>
                     )}
-              
-                <br></br>
+                    </div>
 
-    
+                    <br></br>
+
+                    <div className="form-group col-sm">
                     <p>Välj tillbehör</p>
                     {extra.map(name =>
                         <div key={name}>
-                            <input name="extra" value={name} ref={name} type="checkbox" onChange={e => this.checkboxChange(e)}/>
+                            <input name="extra" value={name} ref={name} type="checkbox" onChange={e => this.checkboxChange(e)} />
                             {name} ({inventory[name].price}kr)
                   </div>
                     )}
-          
-                <br></br>
+                    </div>
 
-            
+                    <br></br>
+
+                    <div className="form-group col-sm">
                     <p>Välj dressing</p>
-                    <select name="dressing" onChange={e => this.selectChange(e)}>
+                    <select required name="dressing" onChange={e => this.selectChange(e)} className="form-control">
+                    <option selected value='' disabled hidden>make a choice...</option>
                         {dressing.map(name => <option key={name} value={name}>
-                        {name} ({inventory[name].price}kr)</option>)}
+                            {name} ({inventory[name].price}kr)</option>)}
                     </select>
-      
-                <br></br>
-                <button 
-                type="submit" 
-                className="btn btn-primary"
-                id="submit" 
-                onClick={e => this.onSubmit(e)}
-                data-dismiss="modal"
-                >
-                Lägg till
-                </button>
-                <button type="submit"
-                className="btn btn-primary"
-                id="submit"
-                onClick={e => this.onCancel(e)}
-                data-dismiss="modal">
-                Avbryt
-                </button>
+                    <div className="invalid-feedback">
+                            Du måste välja en dressing.
+                    </div>
+                    </div>
+                    </div>
+                    <br></br>
+                    <input
+                        type="submit"
+                        className="btn btn-primary"
+                        id="submit"
+                        value="Lägg till"
+                    />
                 </form>
             </div>
         );

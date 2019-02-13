@@ -53,7 +53,6 @@ class App extends React.Component {
             <li className="nav-item">
               <Link className="nav-link" to='/ViewOrder'>Se din order</Link>
             </li>
-            {/* more links */}
           </ul>
           <div className="jumbotron text-center">
             <h1 className="display-4">Salad Maker 2000</h1>
