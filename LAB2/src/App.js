@@ -8,25 +8,35 @@ import "bootstrap/dist/js/bootstrap.js";
 import inventory from "./inventory.ES6";
 import ComposeSaladModal from "./ComposeSaladModal";
 import './App.css';
-import Table from './ViewOrder';
+import ViewOrder from "./ViewOrder";
 
 class App extends React.Component {
   constructor(...args){
     super(...args);
     this.state = {
-      data: [""]
+      data: []
     };
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  makeDataArray = (e) => {
+    this.setState({data: [...this.state.data, 
+                          e.foundation + ", " + 
+                          e.protein + ", " + 
+                          e.extra + ", " + 
+                          e.dressing + ", " + 
+                          e.price + " kr"]});
+    }
+
   onSubmit = (e) => {
     console.log("app fick", e);
-    this.setState({data: [...this.state.data, e]})
+    this.setState(this.makeDataArray(e));
     console.log("state", this.state.data);
 
   }
 
   render() {
+    console.log("consoleloggarn i render fick", this.state.data)
     return (
       <div>
         <div className="jumbotron text-center">
@@ -36,28 +46,7 @@ class App extends React.Component {
           </p>
         </div>
         <ComposeSaladModal inventory={inventory} onSubmit={e => this.onSubmit(e)} />
-        <Table data={this.state.data} header={[
-    {
-      name :'Foundation',
-      prop: 'foundation',
-    },
-    {
-      name: 'Protein',
-      prop: 'protein',
-    },
-    {
-      name: 'Extras',
-      prop: 'extra',
-    },
-    {
-      name:'Dressing',
-      prop: 'dressing',
-    },
-    {
-      name: 'Price',
-      prop: 'price',
-    }
-  ]} />;
+        <ViewOrder order={this.state.data}/>
       </div>
     );
   }

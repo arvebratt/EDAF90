@@ -1,25 +1,24 @@
-import React from 'react';
-import { Table, thead} from 'react-bootstrap';
+import React, { Component } from 'react';
+//import { Table, thead} from 'bootstrap';
 
-const row = (x, i, header) =>
-  <tr key={`tr-${i}`}>
-    {header.map((y, k) =>
-      <td key={`trc-${k}`}>
-        {x[y.prop].toString()}
-      </td>
-    )}
-</tr>;
- 
-export default ({data, header}) =>
-<Table striped bordered hover>
-  <thead>
-    <tr>
-      {
-        header.map((x,i) => <th key={i}>{x.name}</th>)
-      }
-    </tr>
-  </thead>
-  <tbody>
-    {data.map((x, i) => row(x, i, header))}
-  </tbody>
-</Table>;
+
+class ViewOrder extends Component {
+
+  render() {
+
+    let order = this.props.order;
+    console.log("vieworder fick", order)
+    return (
+      <ul className="list-group">
+        <li className="list-group-item list-group-item-secondary">Order</li>
+        {order.map((e) => <li className="list-group-item list-group-item-success" 
+        key={'_' + Math.random().toString(36).substr(2, 9)}>{e}</li>)}
+      </ul>
+    )
+  }
+}
+
+
+export default ViewOrder
+
+// {data.map((x, i) => row(x, i, header))}
