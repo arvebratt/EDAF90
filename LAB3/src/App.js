@@ -55,15 +55,15 @@ class App extends React.Component {
   postData(url = '', data = {}) {
     return fetch(url, {
       method: "POST", 
-      mode: "cors",
-      cache: "no-cache",
-      credentials: "same-origin",
-      headers: "",
-      redirect: "follow", 
-      referrer: "no-referrer", 
+      // mode: "cors",
+      // cache: "no-cache",
+      // credentials: "same-origin",
+      // headers: "",
+      // redirect: "follow", 
+      // referrer: "no-referrer", 
       body: JSON.stringify(data),
     })
-      .then(response => response.json()); // parses response to JSON
+      .then(response => response.json());
   }
 
   render() {
@@ -81,7 +81,7 @@ class App extends React.Component {
               <Link className="nav-link" to='/ViewOrder'>Se din order</Link>
             </li>
           </ul>
-          <div className="jumbotron text-center">
+          <div className="jumbotron-text-center">
             <h1 className="display-4">Salad Maker 2000</h1>
             <p className="lead">
               Hosshuset AB

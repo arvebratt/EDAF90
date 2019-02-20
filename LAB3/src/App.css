@@ -8,3 +8,12 @@
   font-size: calc(20px + 2vmin);
   color: white;
 }
+
+.nav {
+  position: relative; 
+  height:6vh;
+  color: rgb(231, 9, 9);
+}
+
+
+
